@@ -5,9 +5,23 @@ plugins {
 repositories {
     mavenCentral()
     // mavenLocal()
+    // maven {
+    //     url = '../../shared-repo'
+    // }
     maven {
-        url = '../../shared-repo'
+        // url = uri('http://localhost:8081/repository/maven-snapshots/')
+        url = uri('http://localhost:8081/repository/maven-releases/')
+        allowInsecureProtocol = true
+        credentials {
+            username = 'admin'
+            password = 'admin123'
+        }
     }
+}
+
+configurations.all {
+    // resolutionStrategy.cacheDynamicVersionsFor 10, 'seconds'
+    resolutionStrategy.cacheChangingModulesFor 10, 'seconds'
 }
 
 dependencies {
@@ -19,7 +33,9 @@ dependencies {
     // This dependency is used by the application.
     implementation libs.guava
 
-    implementation 'org.example:library:1.0.0'
+    implementation('org.example:library:1.0.0') {
+        changing = true
+    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
