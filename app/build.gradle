@@ -4,7 +4,10 @@ plugins {
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    // mavenLocal()
+    maven {
+        url = '../../shared-repo'
+    }
 }
 
 dependencies {
